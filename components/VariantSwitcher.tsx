@@ -17,7 +17,7 @@ function WelcomeTip({ onDismiss }: { onDismiss: () => void }) {
 
   return (
     <div
-      className="fixed inset-0 z-40 flex items-start justify-center pt-[18vh] backdrop-blur-sm bg-black/30"
+      className="fixed inset-0 z-[45] flex items-start justify-center pt-[18vh] backdrop-blur-sm bg-black/30"
       onClick={onDismiss}
     >
       <div
