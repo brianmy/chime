@@ -17,21 +17,24 @@ function WelcomeTip({ onDismiss }: { onDismiss: () => void }) {
 
   return (
     <div
-      className="absolute left-1/2 -translate-x-1/2 top-full mt-2 z-50 w-72 bg-white text-[#222222] rounded-xl shadow-2xl p-4 text-sm"
-      role="status"
+      className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm bg-black/30"
+      onClick={onDismiss}
     >
-      {/* Arrow */}
-      <span className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white rotate-45 shadow-sm" />
-      <p className="font-semibold mb-1">How to use this demo</p>
-      <p className="text-[#717171] text-xs leading-relaxed">
-        Pick a variant above to switch views, then hover the numbered badges to read the design rationale behind each decision.
-      </p>
-      <button
-        onClick={onDismiss}
-        className="mt-3 text-xs font-medium text-[#E31C5F] hover:underline"
+      <div
+        className="bg-white text-[#222222] rounded-2xl shadow-2xl p-6 w-80 text-sm"
+        onClick={(e) => e.stopPropagation()}
       >
-        Got it
-      </button>
+        <p className="font-semibold mb-2">How to use this demo</p>
+        <p className="text-[#717171] text-xs leading-relaxed">
+          Pick a variant above to switch views, then hover the numbered badges to read the design rationale behind each decision.
+        </p>
+        <button
+          onClick={onDismiss}
+          className="mt-4 text-xs font-medium text-[#E31C5F] hover:underline"
+        >
+          Got it
+        </button>
+      </div>
     </div>
   )
 }
