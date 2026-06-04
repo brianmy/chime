@@ -2,7 +2,7 @@
 
 An interactive prototype testing two dedicated discovery surfaces for corporate event planners against a control. Built in Next.js 14.
 
-**Live demo:** https://chime-beta.vercel.app
+**Live demo:** https://airbnb-team-events-bmy.vercel.app/
 
 ---
 
