@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { useVariant, type Variant } from './VariantContext'
 
 const VARIANTS: { id: Variant; label: string }[] = [
@@ -8,11 +9,51 @@ const VARIANTS: { id: Variant; label: string }[] = [
   { id: 'b', label: 'Variant B — Editorial' },
 ]
 
-export default function VariantSwitcher() {
-  const { variant, setVariant, showCoachMarks, setShowCoachMarks } = useVariant()
+function WelcomeTip({ onDismiss }: { onDismiss: () => void }) {
+  useEffect(() => {
+    const t = setTimeout(onDismiss, 5000)
+    return () => clearTimeout(t)
+  }, [onDismiss])
 
   return (
-    <div className="bg-[#1a1a1a] text-white py-2 px-4 md:px-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-2 text-sm">
+    <div
+      className="absolute left-1/2 -translate-x-1/2 top-full mt-2 z-50 w-72 bg-white text-[#222222] rounded-xl shadow-2xl p-4 text-sm"
+      role="status"
+    >
+      {/* Arrow */}
+      <span className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white rotate-45 shadow-sm" />
+      <p className="font-semibold mb-1">How to use this demo</p>
+      <p className="text-[#717171] text-xs leading-relaxed">
+        Pick a variant above to switch views, then hover the numbered badges to read the design rationale behind each decision.
+      </p>
+      <button
+        onClick={onDismiss}
+        className="mt-3 text-xs font-medium text-[#E31C5F] hover:underline"
+      >
+        Got it
+      </button>
+    </div>
+  )
+}
+
+export default function VariantSwitcher() {
+  const { variant, setVariant, showCoachMarks, setShowCoachMarks } = useVariant()
+  const [showTip, setShowTip] = useState(false)
+
+  useEffect(() => {
+    if (!sessionStorage.getItem('demo-tip-seen')) {
+      setShowTip(true)
+    }
+  }, [])
+
+  const dismissTip = () => {
+    sessionStorage.setItem('demo-tip-seen', '1')
+    setShowTip(false)
+  }
+
+  return (
+    <div className="relative bg-[#1a1a1a] text-white py-2 px-4 md:px-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-2 text-sm">
+      {showTip && <WelcomeTip onDismiss={dismissTip} />}
       <span className="text-gray-400 text-xs font-medium tracking-wide uppercase">
         Experiment Demo
       </span>
